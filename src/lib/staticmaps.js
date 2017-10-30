@@ -1,6 +1,6 @@
 // npm
 const request = require('request-promise');
-const gm = require('gm');
+let gm = require('gm');
 const Jimp = require('jimp');
 const _ = require('lodash');
 // local
@@ -33,6 +33,12 @@ class StaticMaps {
     this.centerX = 0;
     this.centerY = 0;
     this.zoom = 0;
+
+    // # switch image manipulation library
+    // # https://github.com/aheckmann/gm#use-imagemagick-instead-of-gm 
+    if (this.options.imageMagick === true) {
+      gm = gm.subClass({ imageMagick: true });
+    }
   }
 
   addLine(options) {
